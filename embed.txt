@@ -1,0 +1,32 @@
+<script src="http://detect.weeverapp.com/mdetect.js"></script>
+<script>
+
+	// set app URL
+
+	var appUrl = "http://weeverapp.com/app/yourappname.com";
+
+	// uncomment which device type you want
+	
+	//var deviceForward = isTierWeeverSmartphone;
+	//var deviceForward = isTierWeeverTablet;
+	var deviceForward = isTierWeeverAny;
+	
+	var forwardWeever = function() {
+	
+		if(deviceForward)
+			window.location.href = appUrl;
+	
+	}
+	
+	if(window.onload) {
+	        var curronload = window.onload;
+	        var newonload = function() {
+	            curronload();
+	            forwardWeever();
+	        };
+	        window.onload = newonload;
+	    } else {
+	        window.onload = forwardWeever;
+	    }
+    
+</script>

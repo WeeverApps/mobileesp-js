@@ -108,7 +108,8 @@ var isTierGenericMobile = false;
 // ### Weever vars
 
 var isTierWeeverSmartphone = false, 
-	isTierWeeverTablet = false;
+	isTierWeeverTablet = false,
+	isTierWeeverAny = false;
 
 
 // ### Added for AppleTV and disambiguation for iPad
@@ -1003,6 +1004,7 @@ function InitDeviceScan()
     
     isTierWeeverSmartphone = DetectTierWeeverSmartphones();
     isTierWeeverTablet = DetectTierWeeverTablets();
+    isTierWeeverAny = DetectTierWeeverSmartphones() || DetectTierWeeverTablets();
 
     //Optional: Comment these out if you don't need them.
     //isTierRichCss = DetectTierRichCss();
