@@ -1,11 +1,16 @@
+<!--=============================-->
+<!--WEEVER EMBED CODE STARTS HERE-->
+<!--Paste somewhere in <body> tag-->
+<!--=============================-->
+
 <script src="http://detect.weeverapp.com/mdetect.js"></script>
 <script>
 
-	// set app URL
+	/* set app URL here: */
 
 	var appUrl = "http://weeverapp.com/app/yourappname.com";
 
-	// uncomment which device type you want
+	/* uncomment which device type you want, phones only, tablets only, or both */
 	
 	//var deviceForward = isTierWeeverSmartphone;
 	//var deviceForward = isTierWeeverTablet;
@@ -30,3 +35,7 @@
 	    }
     
 </script>
+
+<!--==============-->
+<!--END EMBED CODE-->
+<!--==============-->

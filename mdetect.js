@@ -4,7 +4,7 @@
 *
 *	Plugin Author:		Robert Gerald Porter <rob@weeverapps.com>
 *	Library Author:		Anthony Hand <http://code.google.com/p/mobileesp/>		
-*	Version: 			0.9.4
+*	Version: 			1.0
 *	License: 			GPL v3.0
 *
 *	This extension is free software: you can redistribute it and/or modify
@@ -150,6 +150,7 @@ var deviceBBTour = "blackberry96"; //Tour
 var deviceBBCurve = "blackberry89"; //Curve 2
 var deviceBBTorch = "blackberry 98"; //Torch
 var deviceBBPlaybook = "playbook"; //PlayBook tablet
+var deviceBBBoldTouch = "blackberry 99"; //### Bold Touch
 
 var devicePalm = "palm";
 var deviceWebOS = "webos"; //For Palm's line of WebOS devices
@@ -496,7 +497,8 @@ function DetectBlackBerryTouch()
 {
    if (DetectBlackBerry() &&
         ((uagent.search(deviceBBStorm) > -1) ||
-        (uagent.search(deviceBBTorch) > -1)))
+        (uagent.search(deviceBBTorch) > -1) ||
+        (uagent.search(deviceBBBoldTouch) > -1))) // ###
       return true;
    else
       return false;
