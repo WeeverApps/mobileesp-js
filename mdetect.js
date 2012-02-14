@@ -150,7 +150,9 @@ var deviceBBTour = "blackberry96"; //Tour
 var deviceBBCurve = "blackberry89"; //Curve 2
 var deviceBBTorch = "blackberry 98"; //Torch
 var deviceBBPlaybook = "playbook"; //PlayBook tablet
+var deviceBBBoldTouch97 = "blackberry 9790"; //### Bold Touch
 var deviceBBBoldTouch = "blackberry 99"; //### Bold Touch
+var deviceBBCurveTouch = "blackberry 938";
 
 var devicePalm = "palm";
 var deviceWebOS = "webos"; //For Palm's line of WebOS devices

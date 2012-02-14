@@ -8,7 +8,7 @@
 
 	/* set app URL here: */
 
-	var appUrl = "http://weeverapp.com/app/yourappname.com";
+	var appUrl = "http://himss.weeverapp.com/app/himms.myweeverapp.com";
 
 	/* uncomment which device type you want, phones only, tablets only, or both */
 	
