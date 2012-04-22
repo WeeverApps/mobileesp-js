@@ -8,7 +8,7 @@
 
 	/* set app URL here: */
 
-	var appUrl = "http://himss.weeverapp.com/app/himms.myweeverapp.com";
+	var appUrl = "http://m.mohawkcollege.ca/";
 
 	/* uncomment which device type you want, phones only, tablets only, or both */
 	
@@ -18,21 +18,13 @@
 	
 	var forwardWeever = function() {
 	
-		if(deviceForward)
+		if(deviceForward) {
+			
 			window.location.href = appUrl;
+			
+		}
 	
-	}
-	
-	if(window.onload) {
-	        var curronload = window.onload;
-	        var newonload = function() {
-	            curronload();
-	            forwardWeever();
-	        };
-	        window.onload = newonload;
-	    } else {
-	        window.onload = forwardWeever;
-	    }
+	}();
     
 </script>
 

@@ -7,11 +7,11 @@
 <script src="http://detect.weeverapp.com/mdetect.js"></script>
 <script>
 
-	// set app URL
+	/* set app URL here: */
 
-	var appUrl = "http://app.weeverapps.com/";
+	var appUrl = "http://m.mohawkcollege.ca/";
 
-	// uncomment which device type you want
+	/* uncomment which device type you want, phones only, tablets only, or both */
 	
 	//var deviceForward = isTierWeeverSmartphone;
 	//var deviceForward = isTierWeeverTablet;
@@ -19,21 +19,13 @@
 	
 	var forwardWeever = function() {
 	
-		if(deviceForward)
+		if(deviceForward) {
+			
 			window.location.href = appUrl;
+			
+		}
 	
-	}
-	
-	if(window.onload) {
-	        var curronload = window.onload;
-	        var newonload = function() {
-	            curronload();
-	            forwardWeever();
-	        };
-	        window.onload = newonload;
-	    } else {
-	        window.onload = forwardWeever;
-	    }
+	}();
     
 </script>
 
