@@ -1,20 +1,24 @@
-<!--=============================-->
-<!--WEEVER EMBED CODE STARTS HERE-->
-<!--Paste somewhere in <body> tag-->
-<!--=============================-->
+<!--======================================--->
+<!--IMPORTANT - MODIFY this REDIRECT CODE --->
+<!--1. Change the URL to point to your app -->
+<!--2. Choose phones, tablets or both ------->
+<!--3. Paste somewhere in <body> tag -------->
+<!--======================================--->
 
 <script src="http://detect.weeverapp.com/mdetect.js"></script>
 <script>
 
-	/* set app URL here: */
+	/* STEP 1.  Change the URL to point to your app */
+	/* Update the app URL below: */
 
-	var appUrl = "http://m.mohawkcollege.ca/";
+	var appUrl = "http://app.weeverapps.com";
 
-	/* uncomment which device type you want, phones only, tablets only, or both */
+	/* STEP 2. Choose phones, tablets or both /*
+	/* Uncomment which devices you want to show your app to: phones only, tablets only, or both (default).  Two of the three device options below should always start with a double-forward slash (//) */
 	
 	//var deviceForward = isTierWeeverSmartphone;
 	//var deviceForward = isTierWeeverTablet;
-	var deviceForward = isTierWeeverAny;
+	  var deviceForward = isTierWeeverAny;
 	
 	var forwardWeever = function() {
 	
