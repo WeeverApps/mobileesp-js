@@ -1,31 +1,37 @@
-/*
-*	MobileESP-JS for Weever Apps
-* 	The MobileESP Project is Copyright 2010-2011, Anthony Hand
-*
-*	Plugin Author:		Robert Gerald Porter <rob@weeverapps.com>
-*	Library Author:		Anthony Hand <http://code.google.com/p/mobileesp/>		
-*	Version: 			1.0.2
-*	License: 			GPL v3.0
-*
-*	This extension is free software: you can redistribute it and/or modify
-*	it under the terms of the GNU General Public License as published by
-*	the Free Software Foundation, either version 3 of the License, or
-*	(at your option) any later version.
-*
-*	This extension is distributed in the hope that it will be useful,
-*	but WITHOUT ANY WARRANTY; without even the implied warranty of
-*	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-*	GNU General Public License for more details <http://www.gnu.org/licenses/>.
-* 
-*/
-
-
-// Below are copyrights from MobileESP library.
-// ### Edits for MobileESP for Joomla marked by "###". Written by Robert Gerald Porter <rob@weeverapps.com>
-// Released under GPL v3, fully compatible with original Apache 2.0 license <http://www.apache.org/licenses/GPL-compatibility.html>
 
 /* *******************************************
-// Copyright 2010-2011, Anthony Hand
+// Copyright 2010-2012, Anthony Hand
+//
+//	Aditional Authors :
+//
+//	Rob Porter (rob@weeverapps.com)
+// Tiago Medeiros (tiago@weeverapps.com)
+//
+//
+//			LAST EDIT : 10th October, 2012
+//
+//
+// File version date: April 23, 2012
+//		Update:
+//		- Updated DetectAmazonSilk(): Fixed an issue in the detection logic.  
+//
+// File version date: April 22, 2012 - Second update
+//		Update: To address additional Kindle issues...
+//		- Updated DetectRichCSS(): Excluded e-Ink Kindle devices. 
+//		- Created DetectAmazonSilk(): Created to detect Kindle Fire devices in Silk mode. 
+//		- Updated DetectMobileQuick(): Updated to include e-Ink Kindle devices and the Kindle Fire in Silk mode.  
+//
+// File version date: April 11, 2012
+//		Update: 
+//		- Added a new variable for the new BlackBerry Curve Touch (9380): deviceBBCurveTouch. 
+//		- Updated DetectBlackBerryTouch() to support the new BlackBerry Curve Touch (9380). 
+//
+// File version date: January 21, 2012
+//		Update: 
+//		- Moved Windows Phone 7 to the iPhone Tier. WP7.5's IE 9-based browser is good enough now.  
+//		- Added a new variable for 2 versions of the new BlackBerry Bold Touch (9900 and 9930): deviceBBBoldTouch. 
+//		- Updated DetectBlackBerryTouch() to support the 2 versions of the new BlackBerry Bold Touch (9900 and 9930). 
+//		- Updated DetectKindle() to focus on eInk devices only. The Kindle Fire should be detected as a regular Android device.
 //
 // File version date: August 22, 2011
 //		Update: 
@@ -35,21 +41,6 @@
 //		Update: 
 //		- Updated DetectAndroidTablet() to exclude Opera Mini, which was falsely reporting as running on a tablet device when on a phone.
 //		- Updated the user agent (uagent) init technique to handle spiders and such with null values.
-//
-// File version date: August 7, 2011
-//		Update: 
-//		- The Opera for Android browser doesn't follow Google's recommended useragent string guidelines, so some fixes were needed.
-//		- Updated DetectAndroidPhone() and DetectAndroidTablet() to properly detect devices running Opera Mobile.
-//		- Created 2 new methods: DetectOperaAndroidPhone() and DetectOperaAndroidTablet(). 
-//		- Updated DetectTierIphone(). Removed the call to DetectMaemoTablet(), an obsolete mobile OS.
-//
-// File version date: July 15, 2011
-//		Update: 
-//		- Refactored the variable called maemoTablet. Its new name is the more generic deviceTablet.
-//		- Created the variable deviceWebOShp for HP's line of WebOS devices starting with the TouchPad tablet.
-//		- Created the DetectWebOSTablet() method for HP's line of WebOS tablets starting with the TouchPad tablet.
-//		- Updated the DetectTierTablet() method to also search for WebOS tablets. 
-//		- Updated the DetectMaemoTablet() method to disambiguate against WebOS tablets which share some signature traits. 
 //
 //
 // LICENSE INFORMATION
@@ -105,6 +96,7 @@ var isTierRichCss = false;
 var isTierGenericMobile = false; 
 
 
+
 // ### Weever vars
 
 var isTierWeeverSmartphone = false, 
@@ -114,6 +106,7 @@ var isTierWeeverSmartphone = false,
 
 // ### Added for AppleTV and disambiguation for iPad
 var deviceIntelMacOSX = 'intel mac os x'; // Used for AppleTV2 w/ aTV Flash (black) Couch Surfer Pro browser detection
+
 
 //Initialize some initial string variables we'll look for later.
 var engineWebKit = "webkit";
@@ -144,15 +137,15 @@ var enginePie = "wm5 pie";  //An old Windows Mobile
 
 var deviceBB = "blackberry";
 var vndRIM = "vnd.rim"; //Detectable when BB devices emulate IE or Firefox
+
 var deviceBBStorm = "blackberry95"; //Storm 1 and 2
-var deviceBBBold = "blackberry97"; //Bold
+var deviceBBBold = "blackberry97"; //Bold 97x0 (non-touch)
+var deviceBBBoldTouch = "blackberry 99"; //Bold 99x0 (touchscreen)
 var deviceBBTour = "blackberry96"; //Tour
 var deviceBBCurve = "blackberry89"; //Curve 2
+var deviceBBCurveTouch = "blackberry 938"; //Curve Touch 9380
 var deviceBBTorch = "blackberry 98"; //Torch
 var deviceBBPlaybook = "playbook"; //PlayBook tablet
-var deviceBBBoldTouch97 = "blackberry 9790"; //### Bold Touch
-var deviceBBBoldTouch = "blackberry 99"; //### Bold Touch
-var deviceBBCurveTouch = "blackberry 938";
 
 var devicePalm = "palm";
 var deviceWebOS = "webos"; //For Palm's line of WebOS devices
@@ -161,7 +154,8 @@ var deviceWebOShp = "hpwos"; //For HP's line of WebOS devices
 var engineBlazer = "blazer"; //Old Palm browser
 var engineXiino = "xiino";
 
-var deviceKindle = "kindle"; //Amazon Kindle, eInk one.
+var deviceKindle = "kindle"; //Amazon Kindle, eInk one
+var engineSilk = "silk"; //Amazon's accelerated Silk browser for Kindle Fire
 
 //Initialize variables for mobile-specific content.
 var vndwap = "vnd.wap";
@@ -253,7 +247,7 @@ function DetectIpod()
 // Detects if the current device is an iPad tablet.
 function DetectIpad()
 {
-   if (uagent.search(deviceIpad) > -1  && DetectWebkit() && !DetectAppleTVTwo())
+   if (uagent.search(deviceIpad) > -1  && DetectWebkit())
       return true;
    else
       return false;
@@ -282,19 +276,6 @@ function DetectIos()
       return false;
 }
 
-//************************** // ###
-// Detects AppleTV second generation, jailbroken with Firecore's aTV Flash (black) Couch Surfer Pro browser.
-function DetectAppleTVTwo()
-{
-	   // Couch Surfer Pro shows up as an iPad, but with Intel Mac OS X string
-    if(uagent.search(deviceIntelMacOSX) > -1 && 
-    		uagent.search(deviceIpad) > -1)
-       return true;
-    else
-       return false;
-}
-
-
 //**************************
 // Detects *any* Android OS-based device: phone, tablet, and multi-media player.
 // Also detects Google TV.
@@ -308,6 +289,43 @@ function DetectAndroid()
    else
       return false;
 }
+
+//************************** // ###
+// Detects AppleTV second generation, jailbroken with Firecore's aTV Flash (black) Couch Surfer Pro browser.
+function DetectAppleTVTwo()
+{
+	   // Couch Surfer Pro shows up as an iPad, but with Intel Mac OS X string
+    if(uagent.search(deviceIntelMacOSX) > -1 && 
+    		uagent.search(deviceIpad) > -1)
+       return true;
+    else
+       return false;
+}
+
+//**************************** // ###
+// Weever additional functions
+function DetectTierWeeverSmartphones()
+{
+   if (DetectIphoneOrIpod()) 
+      return true; 
+   if (DetectAndroid()) 
+      return true; 
+   if (DetectBlackBerryTouch()) 
+      return true; 
+   else
+      return false; 
+}
+
+function DetectTierWeeverTablets()
+{
+   if (DetectIpad()
+      || DetectAndroidTablet()
+      || DetectBlackBerryTablet())
+      return true;
+   else
+      return false;
+}
+   
 
 //**************************
 // Detects if the current device is a (small-ish) Android OS-based device
@@ -494,13 +512,14 @@ function DetectBlackBerryWebKit()
 
 //**************************
 // Detects if the current browser is a BlackBerry Touch
-//    device, such as the Storm or Torch. Excludes the Playbook.
+//    device, such as the Storm, Torch, and Bold Touch. Excludes the Playbook.
 function DetectBlackBerryTouch()
 {
    if (DetectBlackBerry() &&
         ((uagent.search(deviceBBStorm) > -1) ||
         (uagent.search(deviceBBTorch) > -1) ||
-        (uagent.search(deviceBBBoldTouch) > -1))) // ###
+        (uagent.search(deviceBBBoldTouch) > -1) ||
+        (uagent.search(deviceBBCurveTouch) > -1) ))
       return true;
    else
       return false;
@@ -510,10 +529,10 @@ function DetectBlackBerryTouch()
 // Detects if the current browser is a BlackBerry OS 5 device AND
 //    has a more capable recent browser. Excludes the Playbook.
 //    Examples, Storm, Bold, Tour, Curve2
-//    Excludes the new BlackBerry OS 6 browser!!
+//    Excludes the new BlackBerry OS 6 and 7 browser!!
 function DetectBlackBerryHigh()
 {
-   //Disambiguate for BlackBerry OS 6 (WebKit) browser
+   //Disambiguate for BlackBerry OS 6 or 7 (WebKit) browser
    if (DetectBlackBerryWebKit())
       return false;
    if (DetectBlackBerry())
@@ -778,10 +797,23 @@ function DetectGameConsole()
 };
 
 //**************************
-// Detects if the current device is a Kindle.
+// Detects if the current device is an Amazon Kindle (eInk devices only).
+// Note: For the Kindle Fire, use the normal Android methods.
 function DetectKindle()
 {
-   if (uagent.search(deviceKindle) > -1)
+   if (uagent.search(deviceKindle) > -1 &&
+       !DetectAndroid())
+      return true;
+   else
+      return false;
+}
+
+//**************************
+// Detects if the current Amazon device is using the Silk Browser.
+// Note: Typically used by the the Kindle Fire.
+function DetectAmazonSilk()
+{
+   if (uagent.search(engineSilk) > -1)
       return true;
    else
       return false;
@@ -829,7 +861,8 @@ function DetectMobileQuick()
    if (uagent.search(mobile) > -1)
       return true;
 
-   if (DetectKindle())
+   if (DetectKindle() ||
+       DetectAmazonSilk())
       return true;
       
    return false;
@@ -889,7 +922,7 @@ function DetectTierTablet()
 // The quick way to detect for a tier of devices.
 //   This method detects for devices which can 
 //   display iPhone-optimized web content.
-//   Includes iPhone, iPod Touch, Android, WebOS, etc.
+//   Includes iPhone, iPod Touch, Android, Windows Phone 7, WebOS, etc.
 function DetectTierIphone()
 {
    if (DetectIphoneOrIpod())
@@ -897,6 +930,8 @@ function DetectTierIphone()
    if (DetectAndroidPhone())
       return true;
    if (DetectBlackBerryWebKit() && DetectBlackBerryTouch())
+      return true;
+   if (DetectWindowsPhone7())
       return true;
    if (DetectPalmWebOS())
       return true;
@@ -916,7 +951,8 @@ function DetectTierRichCss()
 {
     if (DetectMobileQuick())
     {
-       if (DetectTierIphone())
+       //Exclude iPhone Tier and e-Ink Kindle devices
+       if (DetectTierIphone() || DetectKindle())
           return false;
           
        //The following devices are explicitly ok.
@@ -929,9 +965,7 @@ function DetectTierRichCss()
        if (DetectBlackBerryHigh())
           return true;
           
-       //WP7's IE-7-based browser isn't good enough for iPhone Tier.
-       if (DetectWindowsPhone7())
-          return true;
+       //Older Windows 'Mobile' isn't good enough for iPhone Tier.
        if (DetectWindowsMobile())
           return true;
           
@@ -968,32 +1002,6 @@ function DetectTierOtherPhones()
 };
 
 
-//**************************** // ###
-// Weever additional functions
-function DetectTierWeeverSmartphones()
-{
-   if (DetectIphoneOrIpod()) 
-      return true; 
-   if (DetectAndroid()) 
-      return true; 
-   if (DetectBlackBerryTouch()) 
-      return true; 
-   else
-      return false; 
-}
-
-function DetectTierWeeverTablets()
-{
-   if (DetectIpad()
-      || DetectAndroidTablet()
-      || DetectBlackBerryTablet())
-      return true;
-   else
-      return false;
-}
-   
-
-
 //**************************
 // Initialize Key Stored Values.
 function InitDeviceScan()
@@ -1003,16 +1011,16 @@ function InitDeviceScan()
     isAndroidPhone = DetectAndroidPhone();
     isTierIphone = DetectTierIphone();
     isTierTablet = DetectTierTablet();
-    
-    // ### quick vars
+
+    //Optional: Comment these out if you don't need them.
+    isTierRichCss = DetectTierRichCss();
+    isTierGenericMobile = DetectTierOtherPhones();
+	
+	    // ### quick vars
     
     isTierWeeverSmartphone = DetectTierWeeverSmartphones();
     isTierWeeverTablet = DetectTierWeeverTablets();
     isTierWeeverAny = DetectTierWeeverSmartphones() || DetectTierWeeverTablets();
-
-    //Optional: Comment these out if you don't need them.
-    //isTierRichCss = DetectTierRichCss();
-    //isTierGenericMobile = DetectTierOtherPhones();
 };
 
 //Now, run the initialization method.
