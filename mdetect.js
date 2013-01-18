@@ -144,6 +144,7 @@ var deviceBBBoldTouch = "blackberry 99"; //Bold 99x0 (touchscreen)
 var deviceBBTour = "blackberry96"; //Tour
 var deviceBBCurve = "blackberry89"; //Curve 2
 var deviceBBCurveTouch = "blackberry 938"; //Curve Touch 9380
+var deviceBBBoldTouch97 = "blackberry 979"; //Bold Touch 9790
 var deviceBBTorch = "blackberry 98"; //Torch
 var deviceBBPlaybook = "playbook"; //PlayBook tablet
 
@@ -519,6 +520,7 @@ function DetectBlackBerryTouch()
         ((uagent.search(deviceBBStorm) > -1) ||
         (uagent.search(deviceBBTorch) > -1) ||
         (uagent.search(deviceBBBoldTouch) > -1) ||
+        (uagent.search(deviceBBBoldTouch97) > -1) ||
         (uagent.search(deviceBBCurveTouch) > -1) ))
       return true;
    else
