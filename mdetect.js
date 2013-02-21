@@ -8,7 +8,7 @@
 // Tiago Medeiros (tiago@weeverapps.com)
 //
 //
-//			LAST EDIT : 10th October, 2012
+//			LAST EDIT : 21 February, 2013
 //
 //
 // File version date: April 23, 2012
@@ -147,6 +147,7 @@ var deviceBBCurveTouch = "blackberry 938"; //Curve Touch 9380
 var deviceBBBoldTouch97 = "blackberry 979"; //Bold Touch 9790
 var deviceBBTorch = "blackberry 98"; //Torch
 var deviceBBPlaybook = "playbook"; //PlayBook tablet
+var deviceBB10 = "bb10";
 
 var devicePalm = "palm";
 var deviceWebOS = "webos"; //For Palm's line of WebOS devices
@@ -487,6 +488,16 @@ function DetectBlackBerry()
       return false;
 }
 
+function DetectBlackBerry10()
+{
+
+	if( uagent.search(deviceBB10) > -1 && uagent.search('mobile') > -1 )
+		return true;
+	else 
+		return false;
+		
+}
+
 //**************************
 // Detects if the current browser is on a BlackBerry tablet device.
 //    Example: PlayBook
@@ -521,7 +532,9 @@ function DetectBlackBerryTouch()
         (uagent.search(deviceBBTorch) > -1) ||
         (uagent.search(deviceBBBoldTouch) > -1) ||
         (uagent.search(deviceBBBoldTouch97) > -1) ||
-        (uagent.search(deviceBBCurveTouch) > -1) ))
+        (uagent.search(deviceBBCurveTouch) > -1) ) ||
+        (uagent.search(deviceBB10) > -1 && uagent.search('mobile') > -1)
+      )
       return true;
    else
       return false;
