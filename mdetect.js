@@ -128,6 +128,12 @@ var deviceS70 = "series70";
 var deviceS80 = "series80";
 var deviceS90 = "series90";
 
+
+// ### added for Windows 8
+var deviceWinIE10 = 'msie 10.0';
+// ### added for Windows Phone 8
+var deviceWinPhone8 = 'windows phone 8';
+
 var deviceWinPhone7 = "windows phone os 7"; 
 var deviceWinMob = "windows ce";
 var deviceWindows = "windows";
@@ -308,12 +314,14 @@ function DetectAppleTVTwo()
 // Weever additional functions
 function DetectTierWeeverSmartphones()
 {
-   if (DetectIphoneOrIpod()) 
+   if ( DetectIphoneOrIpod() ) 
       return true; 
-   if (DetectAndroid()) 
+   if ( DetectAndroid() ) 
       return true; 
-   if (DetectBlackBerryTouch()) 
+   if ( DetectBlackBerryTouch() ) 
       return true; 
+   if ( DetectWindowsIE10() && DetectWinPhone8() )
+   	  return true;
    else
       return false; 
 }
@@ -322,7 +330,8 @@ function DetectTierWeeverTablets()
 {
    if (DetectIpad()
       || DetectAndroidTablet()
-      || DetectBlackBerryTablet())
+      || DetectBlackBerryTablet()
+      || ( DetectWindowsIE10() && !DetectWinPhone8() ))
       return true;
    else
       return false;
@@ -432,6 +441,30 @@ function DetectSymbianOS()
        uagent.search(deviceS70) > -1 ||
        uagent.search(deviceS80) > -1 ||
        uagent.search(deviceS90) > -1)
+      return true;
+   else
+      return false;
+}
+
+	// ###
+//**************************
+// Detects if the current browser is a
+// Windows IE 10 browser.
+function DetectWindowsIE10()
+{
+   if (uagent.search(deviceWinIE10)) > -1)
+      return true;
+   else
+      return false;
+}
+
+// ###
+//**************************
+// Detects if the current browser is a
+// Windows Phone 8 device.
+function DetectWindowsPhone8()
+{
+   if (uagent.search(deviceWinPhone8)) > -1)
       return true;
    else
       return false;

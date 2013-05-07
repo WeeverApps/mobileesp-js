@@ -8,26 +8,27 @@
 <script src="http://detect.weeverapp.com/mdetect.js"></script>
 <script>
 
-	/* STEP 1.  Change the URL to point to your app */
-	/* Update the app URL below: */
+	function() {
 
-	var appUrl = "http://app.weeverapps.com";
+		// STEP 1.  Change the URL to point to your app 
+		// Update the app URL below: 
+	
+		var appUrl = "http://app.weeverapps.com";
+	
+		// STEP 2. Choose phones, tablets or both 
+		// Uncomment which devices you want to show your app to: phones only, tablets only, or both (default).  
+		// Two of the three device options below should always start with a double-forward slash (//) to invalidate
+		
+		//var deviceForward = isTierWeeverSmartphone;
+		//var deviceForward = isTierWeeverTablet;
+		  var deviceForward = isTierWeeverAny;
 
-	/* STEP 2. Choose phones, tablets or both /*
-	/* Uncomment which devices you want to show your app to: phones only, tablets only, or both (default).  Two of the three device options below should always start with a double-forward slash (//) */
-	
-	//var deviceForward = isTierWeeverSmartphone;
-	//var deviceForward = isTierWeeverTablet;
-	  var deviceForward = isTierWeeverAny;
-	
-	var forwardWeever = function() {
-	
 		if(deviceForward) {
 			
 			window.location.href = appUrl;
 			
 		}
-	
+		
 	}();
     
 </script>
