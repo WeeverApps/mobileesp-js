@@ -80,6 +80,7 @@
 // *******************************************
 */
 
+
 //Optional: Store values for quickly accessing same info multiple times.
 //Note: These values are not set automatically.
 //Stores whether the device is an iPhone or iPod Touch.
@@ -452,7 +453,7 @@ function DetectSymbianOS()
 // Windows IE 10 browser.
 function DetectWindowsIE10()
 {
-   if (uagent.search(deviceWinIE10)) > -1)
+   if (uagent.search(deviceWinIE10) > -1)
       return true;
    else
       return false;
@@ -464,7 +465,7 @@ function DetectWindowsIE10()
 // Windows Phone 8 device.
 function DetectWindowsPhone8()
 {
-   if (uagent.search(deviceWinPhone8)) > -1)
+   if (uagent.search(deviceWinPhone8) > -1)
       return true;
    else
       return false;
@@ -1049,11 +1050,64 @@ function DetectTierOtherPhones()
       return false;
 };
 
+function $_GET(q,s)
+{
+    s = s ? s : window.location.search;
+    console.log( window.location.href );
+    var re = new RegExp('&'+q+'(?:=([^&]*))?(?=&|$)','i');
+    return (s=s.replace(/^\?/,'&').match(re)) ? (typeof s[1] == 'undefined' ? '' : decodeURIComponent(s[1])) : undefined;
+}
+
+function createCookie(name,value,days) {
+	if (days) {
+		var date = new Date();
+		date.setTime(date.getTime()+(days*24*60*60*1000));
+		var expires = "; expires="+date.toGMTString();
+	}
+	else var expires = "";
+	document.cookie = name+"="+value+expires+"; path=/";
+}
+
+function readCookie(name) {
+	var nameEQ = name + "=";
+	var ca = document.cookie.split(';');
+	for(var i=0;i < ca.length;i++) {
+		var c = ca[i];
+		while (c.charAt(0)==' ') c = c.substring(1,c.length);
+		if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
+	}
+	return null;
+}
+
+function eraseCookie(name) {
+	createCookie(name,"",-1);
+}
+
 
 //**************************
 // Initialize Key Stored Values.
 function InitDeviceScan()
 {
+
+	
+	var fullWebsite = $_GET("full");
+	
+	// if you want to kill the cookie
+	if ( 0 === fullWebsite ) {
+	
+		eraseCookie( 'noWxApp' );
+	
+	}
+	
+	// kill it if full=1 or full=true
+	if( !!fullWebsite || readCookie('noWxApp') ) {
+	
+		createCookie( 'noWxApp', 1, 365) ;
+	
+		return;
+		
+	}
+	
     //We'll use these 4 variables to speed other processing. They're super common.
     isIphone = DetectIphoneOrIpod();
     isAndroidPhone = DetectAndroidPhone();
