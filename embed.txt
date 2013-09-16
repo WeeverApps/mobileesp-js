@@ -5,10 +5,10 @@
 <!--3. Paste somewhere in <body> tag -------->
 <!--======================================--->
 
-<script src="http://detect.weeverapp.com/mdetect.js"></script>
-<script>
+<script src="http://detect.weevercloud.net/mdetect.js"></script>
+<script type="text/javascript">
 
-	function() {
+	(function() {
 
 		// STEP 1.  Change the URL to point to your app 
 		// Update the app URL below: 
@@ -29,7 +29,7 @@
 			
 		}
 		
-	}();
+	}());
     
 </script>
 
