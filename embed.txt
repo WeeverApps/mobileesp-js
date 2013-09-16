@@ -1,9 +1,9 @@
-<!--======================================--->
-<!--IMPORTANT - MODIFY this REDIRECT CODE --->
-<!--1. Change the URL to point to your app -->
-<!--2. Choose phones, tablets or both ------->
-<!--3. Paste somewhere in <body> tag -------->
-<!--======================================--->
+<!-- ======================================= -->
+<!-- IMPORTANT - MODIFY this REDIRECT CODE   -->
+<!-- 1. Change the URL to point to your app  -->
+<!-- 2. Choose phones, tablets or both ----- -->
+<!-- 3. Paste somewhere in <body> tag ------ -->
+<!-- ======================================= -->
 
 <script src="http://detect.weevercloud.net/mdetect.js"></script>
 <script type="text/javascript">
@@ -33,6 +33,6 @@
     
 </script>
 
-<!--==============-->
-<!--END EMBED CODE-->
-<!--==============-->
+<!-- ============== -->
+<!-- END EMBED CODE -->
+<!-- ============== -->
