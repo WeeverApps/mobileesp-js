@@ -1162,6 +1162,7 @@ var initCompleted = false,
 	   if (DetectIpad()
 		  || DetectAndroidTablet()
 		  || DetectBlackBerryTablet()
+		  || DetectIpad()
 		  //|| ( DetectWindowsIE10Touch() && !DetectWindowsPhone8() ))
 		  return true;
 	   else
