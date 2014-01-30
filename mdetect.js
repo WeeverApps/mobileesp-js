@@ -116,6 +116,7 @@ var deviceIntelMacOSX = 'intel mac os x'; // Used for AppleTV2 w/ aTV Flash (bla
 
 // ### added for Windows 8
 var deviceWinIE10 = 'msie 10.0';
+var deviceTouch = 'touch';
 
 
 
@@ -1161,7 +1162,7 @@ var initCompleted = false,
 	   if (DetectIpad()
 		  || DetectAndroidTablet()
 		  || DetectBlackBerryTablet()
-		  || ( DetectWindowsIE10() && !DetectWindowsPhone8() ))
+		  || ( DetectWindowsIE10Touch() && !DetectWindowsPhone8() ))
 		  return true;
 	   else
 		  return false;
@@ -1177,6 +1178,19 @@ var initCompleted = false,
 		  return true;
 	   else
 		  return false;
+	}
+	
+	// ###
+	// ***********************
+	// Detects when IE10 reports being in touch mode
+	function DetectWindowsIE10Touch()
+	{
+	
+	  if( uagent.search(deviceTouch) > -1 && DetectWindowsIE10 )
+	  	return true;
+	  	
+	  return false;
+		
 	}
 
 //Initialize the MobileEsp object
