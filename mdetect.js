@@ -1162,7 +1162,7 @@ var initCompleted = false,
 	   if (DetectIpad()
 		  || DetectAndroidTablet()
 		  || DetectBlackBerryTablet()
-		  || ( DetectWindowsIE10Touch() && !DetectWindowsPhone8() ))
+		  //|| ( DetectWindowsIE10Touch() && !DetectWindowsPhone8() ))
 		  return true;
 	   else
 		  return false;
