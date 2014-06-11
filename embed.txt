@@ -12,21 +12,41 @@
 
 		// STEP 1.  Change the URL to point to your app 
 		// Update the app URL below: 
-	
+
 		var appUrl = "http://app.weeverapps.com";
-	
+
 		// STEP 2. Choose phones, tablets or both 
 		// Uncomment which devices you want to show your app to: phones only, tablets only, or both (default).  
 		// Two of the three device options below should always start with a double-forward slash (//) to invalidate
-		
+
 		//var deviceForward = isTierWeeverSmartphone;
 		//var deviceForward = isTierWeeverTablet;
-		  var deviceForward = isTierWeeverAny;
-
+		var deviceForward = isTierWeeverAny;
+		  
+		  
+		// STEP 3. set up the excluded URLs that will be exempted from mobile device redirection.
+		// var excludedUrls = ['/admin', '/administrator'];
+		var excludedUrls = [];
+		
+		var currentUrl = window.location.pathname;
+		
+		for (var i = 0; i < excludedUrls.length; i++) {
+		
+			var patt1 = new RegExp("^" + excludedUrls[i], 'i');
+			var patt2 = new RegExp(excludedUrls[i] + "$", 'i');
+			
+			if ( currentUrl.match(patt1) || currentUrl.match(patt2) ) {
+				console.log('match');
+				return;
+			}
+			
+		}
+		
+		/****************/
 		if(deviceForward) {
-			
+
 			window.location.href = appUrl;
-			
+
 		}
 		
 	}());
