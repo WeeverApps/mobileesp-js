@@ -326,6 +326,8 @@ var initCompleted = false,
 		isTierWeeverTablet = DetectTierWeeverTablets();
 		isTierWeeverAny = DetectTierWeeverSmartphones() || DetectTierWeeverTablets();
 
+    console.log( "isTierWeeverAny" );
+    console.log( isTierWeeverAny );
 		
 		initCompleted = true;
 	}
@@ -1149,8 +1151,10 @@ var initCompleted = false,
 		  return true; 
 	   if ( DetectAndroid() ) 
 		  return true; 
-	   if ( DetectBlackBerryTouch() ) 
+	   if ( DetectBlackBerry10Phone() ) 
 		  return true; 
+	   if ( DetectTizen() )
+	   	  return true;
 	   if ( DetectWindowsIE10() && DetectWindowsPhone8() )
 		  return true;
 	   else
